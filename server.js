@@ -33,10 +33,15 @@ io.sockets.on('connection', function(socket) {
             //添加一个用户
             socket.nickname = nickname;
             //如果只有一个用户在线 ， 那么等待 ， 知道知道配对成功 ， 进入“wait”
+        console.log("name is "+ nickname)            
             if(strangers.indexOf(nickname) == -1){
                 strangers.push(nickname);
             }
+
+     
+         
             if(strangers[strangers.length-2]){
+                console.log("somes is "+ strangers[strangers.length-2])            
                 users.push(nickname);
                 stranger = strangers[strangers.length-2]
                 socket.emit('loginSuccess',nickname,stranger);

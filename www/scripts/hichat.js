@@ -102,9 +102,8 @@ HiChat.prototype = {
                 that._displayNewMsg('me', msg, color,that.socket.stranger);
             };
         }, false);
-        document.getElementById('clearBtn').addEventListener('click', function() {
-            document.getElementById('historyMsg').innerHTML = '';
-        }, false);
+
+
         document.getElementById('sendImage').addEventListener('change', function() {
             if (this.files.length != 0) {
                 var file = this.files[0],
@@ -124,25 +123,14 @@ HiChat.prototype = {
             };
         }, false);
         this._initialEmoji();
-        document.getElementById('emoji').addEventListener('click', function(e) {
-            var emojiwrapper = document.getElementById('emojiWrapper');
-            emojiwrapper.style.display = 'block';
-            e.stopPropagation();
-        }, false);
+
         document.body.addEventListener('click', function(e) {
             var emojiwrapper = document.getElementById('emojiWrapper');
             if (e.target != emojiwrapper) {
                 emojiwrapper.style.display = 'none';
             };
         });
-        document.getElementById('emojiWrapper').addEventListener('click', function(e) {
-            var target = e.target;
-            if (target.nodeName.toLowerCase() == 'img') {
-                var messageInput = document.getElementById('messageInput');
-                messageInput.focus();
-                messageInput.value = messageInput.value + '[emoji:' + target.title + ']';
-            };
-        }, false);
+
     },
     _initialEmoji: function() {
         var emojiContainer = document.getElementById('emojiWrapper'),
@@ -164,7 +152,7 @@ HiChat.prototype = {
             //determine whether the msg contains emoji
             msg = this._showEmoji(msg);
             msgToDisplay.style.color = color || '#000';
-            msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span>' + msg;
+            msgToDisplay.innerHTML = user + msg;
             container.appendChild(msgToDisplay);
             container.scrollTop = container.scrollHeight;
         }
@@ -176,7 +164,7 @@ HiChat.prototype = {
             msgToDisplay = document.createElement('p'),
             date = new Date().toTimeString().substr(0, 8);
         msgToDisplay.style.color = color || '#000';
-        msgToDisplay.innerHTML = user + '<span class="timespan">(' + date + '): </span> <br/>' + '<a href="' + imgData + '" target="_blank"><img src="' + imgData + '"/></a>';
+        msgToDisplay.innerHTML = user + '<br/>' + '<a href="' + imgData + '" target="_blank"><img src="' + imgData + '"/></a>';
         container.appendChild(msgToDisplay);
         container.scrollTop = container.scrollHeight;
     },
